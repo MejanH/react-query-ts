@@ -1,5 +1,6 @@
-import React, { useEffect, useState } from "react";
+// import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import { useQuery } from "react-query";
 
 interface Post {
   userId: number;
@@ -7,26 +8,37 @@ interface Post {
   title: string;
   body: string;
 }
+interface Error {
+  message: string;
+}
 
-function AllPosts() {
-  const [posts, setPosts] = useState<Post[]>([]);
+export default function AllPosts() {
+  //   const [posts, setPosts] = useState<Post[]>([]);
   const apiUrl = "https://jsonplaceholder.typicode.com/posts";
 
-  useEffect(() => {
-    fetch(apiUrl)
-      .then((res) => res.json())
-      .then((data) => setPosts(data));
-  }, [setPosts]);
+  const { isLoading, error, data } = useQuery<Post[], Error>("posts", () =>
+    fetch(apiUrl).then((res) => res.json())
+  );
+  //   useEffect(() => {
+  //     fetch(apiUrl)
+  //       .then((res) => res.json())
+  //       .then((data) => setPosts(data));
+  //   }, [setPosts]);
+
+  if (isLoading) {
+    return <h1>Loading...</h1>;
+  }
+
+  if (error) return <h1>An error has occurred: + {error.message}</h1>;
 
   return (
     <div className="">
-      {posts.map((post) => (
-        <div>
-          <Link to={`${post.id}`}>{post.title}</Link>
-        </div>
-      ))}
+      {data &&
+        data.map((post) => (
+          <div key={post.id}>
+            <Link to={`${post.id}`}>{post.title}</Link>
+          </div>
+        ))}
     </div>
   );
 }
-
-export default AllPosts;

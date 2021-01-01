@@ -1,3 +1,26 @@
+# React-Query with Typescript
+
+Used
+
+- JsonPlaceHolder API
+- `fetch` api(ignored installed `axios`)
+- `create-react-app` ts template, `react-query`, `react-router-dom`
+
+Feedback:
+
+- Awesome😍. Specially Caching. Only one time loads.
+- No more `useState`, `useEffect`
+- Much Much better than `redux`
+
+Things I need to try with `react-query` in the future:
+
+- Graphql
+- Next.js
+
+For pagination/infinite scroll I think server needs to have an pagination feature. Then you can go like snapping🤞.
+
+**For `error` declaration:** https://github.com/tannerlinsley/react-query/issues/483#issuecomment-683334144
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
